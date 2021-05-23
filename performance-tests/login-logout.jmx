@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="RECORD 06-20-20 8.51.10 PM" enabled="true">
       <stringProp name="TestPlan.comments">This test plan was created by the BlazeMeter converter v.2.3.17. Please contact support@blazemeter.com for further support.</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
-      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
@@ -25,6 +25,16 @@
           <elementProp name="BASE_URL_1" elementType="Argument">
             <stringProp name="Argument.name">BASE_URL_1</stringProp>
             <stringProp name="Argument.value">localhost</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PROTOCOL" elementType="Argument">
+            <stringProp name="Argument.name">PROTOCOL</stringProp>
+            <stringProp name="Argument.value">http</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PORT" elementType="Argument">
+            <stringProp name="Argument.name">PORT</stringProp>
+            <stringProp name="Argument.value">3000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -100,8 +110,8 @@
               </collectionProp>
             </elementProp>
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
-            <stringProp name="HTTPSampler.port">3000</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+            <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">api/login</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -127,14 +137,26 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">TOKEN</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.token</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">USERNAME</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.username</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:3000/api/rooms" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
-            <stringProp name="HTTPSampler.port">3000</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+            <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">api/rooms</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -155,7 +177,7 @@
                 </elementProp>
                 <elementProp name="X-User-Auth" elementType="Header">
                   <stringProp name="Header.name">X-User-Auth</stringProp>
-                  <stringProp name="Header.value">{&quot;username&quot;:&quot;tester01&quot;,&quot;token&quot;:&quot;17a88d963fa9d97ac36536f8dc396e1a&quot;}</stringProp>
+                  <stringProp name="Header.value">{&quot;username&quot;:&quot;${USERNAME}&quot;,&quot;token&quot;:&quot;${TOKEN}&quot;}</stringProp>
                 </elementProp>
                 <elementProp name="Content-Type" elementType="Header">
                   <stringProp name="Header.name">Content-Type</stringProp>
@@ -170,8 +192,8 @@
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
-            <stringProp name="HTTPSampler.port">3000</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+            <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">api/clients</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -192,7 +214,7 @@
                 </elementProp>
                 <elementProp name="X-User-Auth" elementType="Header">
                   <stringProp name="Header.name">X-User-Auth</stringProp>
-                  <stringProp name="Header.value">{&quot;username&quot;:&quot;tester01&quot;,&quot;token&quot;:&quot;17a88d963fa9d97ac36536f8dc396e1a&quot;}</stringProp>
+                  <stringProp name="Header.value">{&quot;username&quot;:&quot;${USERNAME}&quot;,&quot;token&quot;:&quot;${TOKEN}&quot;}</stringProp>
                 </elementProp>
                 <elementProp name="Content-Type" elementType="Header">
                   <stringProp name="Header.name">Content-Type</stringProp>
@@ -207,8 +229,8 @@
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
-            <stringProp name="HTTPSampler.port">3000</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+            <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">api/bills</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -229,7 +251,7 @@
                 </elementProp>
                 <elementProp name="X-User-Auth" elementType="Header">
                   <stringProp name="Header.name">X-User-Auth</stringProp>
-                  <stringProp name="Header.value">{&quot;username&quot;:&quot;tester01&quot;,&quot;token&quot;:&quot;17a88d963fa9d97ac36536f8dc396e1a&quot;}</stringProp>
+                  <stringProp name="Header.value">{&quot;username&quot;:&quot;${USERNAME}&quot;,&quot;token&quot;:&quot;${TOKEN}&quot;}</stringProp>
                 </elementProp>
                 <elementProp name="Content-Type" elementType="Header">
                   <stringProp name="Header.name">Content-Type</stringProp>
@@ -244,8 +266,8 @@
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
-            <stringProp name="HTTPSampler.port">3000</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+            <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">api/reservations</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -266,7 +288,7 @@
                 </elementProp>
                 <elementProp name="X-User-Auth" elementType="Header">
                   <stringProp name="Header.name">X-User-Auth</stringProp>
-                  <stringProp name="Header.value">{&quot;username&quot;:&quot;tester01&quot;,&quot;token&quot;:&quot;17a88d963fa9d97ac36536f8dc396e1a&quot;}</stringProp>
+                  <stringProp name="Header.value">{&quot;username&quot;:&quot;${USERNAME}&quot;,&quot;token&quot;:&quot;${TOKEN}&quot;}</stringProp>
                 </elementProp>
                 <elementProp name="Content-Type" elementType="Header">
                   <stringProp name="Header.name">Content-Type</stringProp>
@@ -282,14 +304,14 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;username&quot;:&quot;tester01&quot;,&quot;token&quot;:&quot;17a88d963fa9d97ac36536f8dc396e1a&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;username&quot;:&quot;${USERNAME}&quot;,&quot;token&quot;:&quot;${TOKEN}&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
-            <stringProp name="HTTPSampler.port">3000</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+            <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">api/logout</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
